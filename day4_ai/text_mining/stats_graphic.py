@@ -2,7 +2,7 @@ import json
 import pandas as pd
 import matplotlib.pyplot as plt
 
-tweets_data_path = 'data.txt'
+tweets_data_path = 'languages.txt'
 
 tweets_data = []
 tweets_file = open(tweets_data_path, "r")
@@ -13,7 +13,7 @@ for line in tweets_file:
     except:
         continue
 
-tweets = pd.DataFrame()
+tweets = pd.DataFrame(tweets_data)
 tweets['text'] = map(lambda tweet: tweet['text'], tweets_data)
 tweets['lang'] = map(lambda tweet: tweet['lang'], tweets_data)
 tweets['country'] = map(lambda tweet: tweet['place']['country'] if tweet['place'] != None else None, tweets_data)
@@ -37,3 +37,5 @@ ax.set_xlabel('Countries', fontsize=15)
 ax.set_ylabel('Number of tweets' , fontsize=15)
 ax.set_title('Top 5 countries', fontsize=15, fontweight='bold')
 tweets_by_country[:5].plot(ax=ax, kind='bar', color='blue')
+
+plt.show()
